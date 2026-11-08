@@ -4,47 +4,41 @@
 @media(max-width:800px){.filters{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}.wrap{padding:12px}header{padding:16px}}
 </style>
 <style>
-/* Premium Samsung-inspired interaction layer */
-:root{--accent:#0878d1;--accent2:#0057a8;--ink:#142b40;--muted:#718397;--surface:#fff;--line:#e7edf4;--shadow:0 8px 28px rgba(22,55,87,.055);--shadow-hover:0 14px 34px rgba(22,85,145,.12)}
-body{background:radial-gradient(ellipse at 8% 0%,#eaf5ff 0,transparent 34%),#f5f8fc;color:var(--ink);letter-spacing:.05px}
-header{background:linear-gradient(115deg,#0756a5 0%,#087bd7 52%,#1596e8 100%);padding:24px clamp(16px,3vw,42px);position:relative;overflow:hidden;box-shadow:0 5px 22px #075ca825}
-header:after{content:"";position:absolute;width:340px;height:340px;border:1px solid #ffffff20;border-radius:50%;right:-90px;top:-210px;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff06;pointer-events:none}
-header h1{letter-spacing:.7px;font-weight:750}header p{opacity:.88}
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+:root{--blue:#0878d1;--ink:#142b40;--line:#e6edf5}
+*{font-family:'Plus Jakarta Sans',Inter,Arial,sans-serif}
+body{background:radial-gradient(circle at 8% 0%,#e8f4ff 0,transparent 32%),#f5f8fc;letter-spacing:-.12px}
+header{background:linear-gradient(120deg,#064b96,#087bd7 60%,#20a0ef);padding:24px clamp(18px,3vw,42px);box-shadow:0 8px 24px #075ca820;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #ffffff20;border-radius:50%;right:-80px;top:-220px;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff06}
+header h1{font-weight:800;letter-spacing:.3px}header p{opacity:.88}
 .wrap{max-width:1600px;padding:clamp(14px,2vw,28px)}
-.panel,.metric{border:1px solid #e5edf5;border-radius:17px;box-shadow:var(--shadow);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.panel,.metric{border:1px solid #e4edf5;border-radius:18px;box-shadow:0 8px 28px #18395708;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
 .panel{padding:19px}.metric{padding:18px;background:linear-gradient(145deg,#fff,#fbfdff)}
-.metric:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:#cfe5f8}
-.cards{gap:14px;margin-bottom:16px}
-.metric small{font-size:12px;font-weight:600;letter-spacing:.25px}.metric b{font-size:29px;letter-spacing:-.8px;animation:countIn .45s ease both}
-.filters{background:#ffffffd9;backdrop-filter:blur(12px);border-color:#e2ebf4;box-shadow:var(--shadow);padding:16px}
-select,input{transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
-select:hover,input:hover{border-color:#b8d7f1}
-select:focus,input:focus{outline:none;border-color:#1386dc;box-shadow:0 0 0 3px #1386dc18}
-button{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;background:linear-gradient(135deg,#087bd7,#0563b5);box-shadow:0 3px 9px #0878d120}
+.metric:hover{transform:translateY(-3px);box-shadow:0 14px 35px #1267a518;border-color:#cfe4f7}
+.metric b{font-weight:800;letter-spacing:-1px;font-size:29px}
+.filters{background:#ffffffd9;backdrop-filter:blur(12px);padding:16px}
+select,input{transition:border-color .18s ease,box-shadow .18s ease}
+select:focus,input:focus{outline:none;border-color:#1386dc;box-shadow:0 0 0 4px #1386dc18}
+button{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
 button:hover{filter:brightness(1.04);transform:translateY(-1px);box-shadow:0 7px 16px #0878d130}
 button:active{transform:scale(.98)}
-.btnlight{background:#f0f7fd;border:1px solid #dcebf8;box-shadow:none}
-.btnlight:hover{background:#e4f2fd;box-shadow:0 5px 12px #1267a512}
-table{border-spacing:0}th{background:#f5f9fd;color:#59728a;font-weight:700;letter-spacing:.25px}
-tbody tr{transition:background .16s ease}tbody tr:hover{background:#f0f8ff}
-td{color:#2d4256;font-size:13px}
-.tag{display:inline-flex;align-items:center;gap:5px}
-.topbar{padding:2px 2px 8px}.topbar strong{font-size:17px;letter-spacing:-.2px}
-.loginbox{border:1px solid #e1ebf4;box-shadow:0 25px 80px #123b5b18;animation:loginUp .45s cubic-bezier(.2,.8,.2,1) both}
-#login{background:linear-gradient(140deg,#eaf5ff,#f6f9fc 55%,#e5f1fb)}
-.loginbox button{margin-top:18px}
-#hint{transition:opacity .2s ease}
-@keyframes loginUp{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes countIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-.panel{animation:fadeIn .38s ease both}.cards .metric:nth-child(2){animation-delay:.04s}.cards .metric:nth-child(3){animation-delay:.08s}.cards .metric:nth-child(4){animation-delay:.12s}
-#body tr{animation:fadeIn .22s ease both}
-#body tr:nth-child(2){animation-delay:.015s}#body tr:nth-child(3){animation-delay:.03s}#body tr:nth-child(4){animation-delay:.045s}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-@media(max-width:650px){header{align-items:flex-start}header h1{font-size:18px}.metric{padding:13px}.metric b{font-size:24px}.panel{padding:13px;border-radius:14px}th,td{padding:10px 9px}}
+.btnlight{background:#eff7fd;border:1px solid #dcebf8;box-shadow:none}
+tbody tr{transition:background .15s ease}tbody tr:hover{background:#f0f8ff}
+.loginbox{border:1px solid #e0ebf5;box-shadow:0 26px 80px #123b5b18;animation:loginFloat .55s cubic-bezier(.2,.8,.2,1) both;padding:30px}
+#login{background:radial-gradient(circle at 15% 20%,#dff0ff,transparent 35%),linear-gradient(135deg,#edf6ff,#f8fbff 55%,#e7f2fc)}
+.loginbox h2{font-size:25px;font-weight:800;letter-spacing:-1px;color:#122b43}
+.loginbox p{font-size:13px}
+.loginbox input{height:48px;border-radius:12px}
+.loginbox button{height:49px;border-radius:12px;font-size:14px;font-weight:800;margin-top:18px}
+.loginbox label{font-weight:700;letter-spacing:.1px}
+@keyframes loginFloat{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.panel{animation:appear .35s ease both}.metric{animation:appear .4s ease both}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:650px){header h1{font-size:18px}.panel{padding:13px}.metric{padding:13px}.metric b{font-size:24px}.loginbox{padding:24px}}
 </style>
 </head><body>
-<div id="login"><div class="loginbox"><h2>DOS Monitoring Samsung</h2><p>Login ADMIN</p><label>Login Code</label><input id="loginCode" value="admin" autocomplete="username"><label>Password</label><input id="pass" type="password" placeholder="Password ADMIN" autocomplete="current-password"><button onclick="login()">Masuk</button><div id="msg"></div></div></div>
+<div id="login"><div class="loginbox"><div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#087bd7,#0756a5);display:grid;place-items:center;color:white;font-weight:800;font-size:18px;box-shadow:0 8px 18px #0878d130">D</div><div style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:#0878d1">SAMSUNG · RETAIL</div></div><h2>DOS Monitoring</h2><p style="margin-top:7px">Welcome back. Login untuk lanjut ✨</p><label>Login Code</label><input id="loginCode" value="admin" autocomplete="username"><label>Password</label><div style="position:relative"><input id="pass" type="password" placeholder="Password ADMIN" autocomplete="current-password" style="padding-right:72px"><button type="button" class="btnlight" onclick="togglePass()" style="position:absolute;right:6px;top:5px;padding:7px 9px;font-size:11px;box-shadow:none">SHOW</button></div><button onclick="login()">Masuk</button><div id="msg"></div></div></div>
 <header><div><h1>DOS MONITORING SAMSUNG</h1><p>Days of Stock · Rolling Sales 30 Hari</p></div><button class="btnlight" onclick="logout()">Logout</button></header>
 <main class="wrap">
 <div class="topbar"><strong>Monitoring DOS</strong><button class="btnlight" onclick="loadDos()">↻ Refresh</button></div>
@@ -61,7 +55,7 @@ td{color:#2d4256;font-size:13px}
 const API='https://script.google.com/macros/s/AKfycbxAVESu3lSJklK4iHLugjNAg-NaG8L1f3qcacecwXdHhIraJdYVfLmJZK9Lze3LlYCp/exec';
 let user=JSON.parse(sessionStorage.getItem('dosUser')||'null'), dosData=null;
 function callApi(action,data){return new Promise((resolve,reject)=>{const cb='doscb_'+Date.now()+'_'+Math.floor(Math.random()*99999);const s=document.createElement('script');const payload=encodeURIComponent(JSON.stringify(data||{}));window[cb]=res=>{delete window[cb];s.remove();resolve(res)};s.onerror=()=>{delete window[cb];s.remove();reject(Error('Backend tidak merespons'))};s.src=API+'?api='+encodeURIComponent(action)+'&callback='+cb+'&data='+payload;document.body.appendChild(s)})}
-async function login(){msg.textContent='Login sedang dicek...';try{const r=await callApi('loginUser',{loginCode:loginCode.value.trim(),password:pass.value});if(!r.ok)throw Error(r.error||'Login gagal');user=r.data;sessionStorage.setItem('dosUser',JSON.stringify(user));loginLayerHide();await loadDos()}catch(e){msg.textContent=e.message}}
+function togglePass(){const p=document.getElementById('pass');const b=p.parentElement.querySelector('button');p.type=p.type==='password'?'text':'password';b.textContent=p.type==='password'?'SHOW':'HIDE'}\nasync function login(){msg.textContent='Login sedang dicek...';try{const r=await callApi('loginUser',{loginCode:loginCode.value.trim(),password:pass.value});if(!r.ok)throw Error(r.error||'Login gagal');user=r.data;sessionStorage.setItem('dosUser',JSON.stringify(user));loginLayerHide();await loadDos()}catch(e){msg.textContent=e.message}}
 function loginLayerHide(){document.getElementById('login').classList.add('hidden')}
 function logout(){user=null;dosData=null;sessionStorage.removeItem('dosUser');document.getElementById('login').classList.remove('hidden')}
 function setOptions(id,items,label,mapper){const el=document.getElementById(id),old=el.value;el.innerHTML='';el.add(new Option(label,''));(items||[]).forEach(x=>{let v=mapper?mapper(x):x;if(v)el.add(new Option(v,v))});if([...el.options].some(o=>o.value===old))el.value=old}
