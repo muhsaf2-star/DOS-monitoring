@@ -28,7 +28,7 @@ tbody tr{transition:background .15s ease}tbody tr:hover{background:#f0f8ff}
 #login{background:radial-gradient(circle at 15% 20%,#dff0ff,transparent 35%),linear-gradient(135deg,#edf6ff,#f8fbff 55%,#e7f2fc)}
 .loginbox h2{font-size:25px;font-weight:800;letter-spacing:-1px;color:#122b43}
 .loginbox p{font-size:13px}
-.loginbox input{height:48px;border-radius:12px}
+.loginbox input{height:48px;border-radius:12px;margin-bottom:8px}
 .loginbox button{height:49px;border-radius:12px;font-size:14px;font-weight:800;margin-top:18px}
 .loginbox label{font-weight:700;letter-spacing:.1px}
 @keyframes loginFloat{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -38,7 +38,7 @@ tbody tr{transition:background .15s ease}tbody tr:hover{background:#f0f8ff}
 @media(max-width:650px){header h1{font-size:18px}.panel{padding:13px}.metric{padding:13px}.metric b{font-size:24px}.loginbox{padding:24px}}
 </style>
 </head><body>
-<div id="login"><div class="loginbox"><div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#087bd7,#0756a5);display:grid;place-items:center;color:white;font-weight:800;font-size:18px;box-shadow:0 8px 18px #0878d130">D</div><div style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:#0878d1">SAMSUNG · RETAIL</div></div><h2>DOS Monitoring</h2><p style="margin-top:7px">Welcome back. Login untuk lanjut ✨</p><label>Login Code</label><input id="loginCode" value="admin" autocomplete="username"><label>Password</label><div style="position:relative"><input id="pass" type="password" placeholder="Password ADMIN" autocomplete="current-password" style="padding-right:72px"><button type="button" class="btnlight" onclick="togglePass()" style="position:absolute;right:6px;top:5px;padding:7px 9px;font-size:11px;box-shadow:none">SHOW</button></div><button onclick="login()">Masuk</button><div id="msg"></div></div></div>
+<div id="login"><div class="loginbox"><div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#087bd7,#0756a5);display:grid;place-items:center;color:white;font-weight:800;font-size:18px;box-shadow:0 8px 18px #0878d130">D</div><div style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:#0878d1">SAMSUNG · RETAIL</div></div><h2>DOS Monitoring</h2><p style="margin-top:7px">Welcome back. Login untuk lanjut ✨</p><label>Login Code</label><input id="loginCode" value="admin" autocomplete="username"><label>Password</label><input id="pass" type="password" placeholder="Masukkan password" autocomplete="current-password"><button onclick="login()">Masuk</button><div id="msg"></div></div></div>
 <header><div><h1>DOS MONITORING SAMSUNG</h1><p>Days of Stock · Rolling Sales 30 Hari</p></div><button class="btnlight" onclick="logout()">Logout</button></header>
 <main class="wrap">
 <div class="topbar"><strong>Monitoring DOS</strong><button class="btnlight" onclick="loadDos()">↻ Refresh</button></div>
@@ -55,7 +55,7 @@ tbody tr{transition:background .15s ease}tbody tr:hover{background:#f0f8ff}
 const API='https://script.google.com/macros/s/AKfycbxAVESu3lSJklK4iHLugjNAg-NaG8L1f3qcacecwXdHhIraJdYVfLmJZK9Lze3LlYCp/exec';
 let user=JSON.parse(sessionStorage.getItem('dosUser')||'null'), dosData=null;
 function callApi(action,data){return new Promise((resolve,reject)=>{const cb='doscb_'+Date.now()+'_'+Math.floor(Math.random()*99999);const s=document.createElement('script');const payload=encodeURIComponent(JSON.stringify(data||{}));window[cb]=res=>{delete window[cb];s.remove();resolve(res)};s.onerror=()=>{delete window[cb];s.remove();reject(Error('Backend tidak merespons'))};s.src=API+'?api='+encodeURIComponent(action)+'&callback='+cb+'&data='+payload;document.body.appendChild(s)})}
-function togglePass(){const p=document.getElementById('pass');const b=p.parentElement.querySelector('button');p.type=p.type==='password'?'text':'password';b.textContent=p.type==='password'?'SHOW':'HIDE'}\nasync function login(){msg.textContent='Login sedang dicek...';try{const r=await callApi('loginUser',{loginCode:loginCode.value.trim(),password:pass.value});if(!r.ok)throw Error(r.error||'Login gagal');user=r.data;sessionStorage.setItem('dosUser',JSON.stringify(user));loginLayerHide();await loadDos()}catch(e){msg.textContent=e.message}}
+async function login(){msg.textContent='Login sedang dicek...';try{const r=await callApi('loginUser',{loginCode:loginCode.value.trim(),password:pass.value});if(!r.ok)throw Error(r.error||'Login gagal');user=r.data;sessionStorage.setItem('dosUser',JSON.stringify(user));loginLayerHide();await loadDos()}catch(e){msg.textContent=e.message}}
 function loginLayerHide(){document.getElementById('login').classList.add('hidden')}
 function logout(){user=null;dosData=null;sessionStorage.removeItem('dosUser');document.getElementById('login').classList.remove('hidden')}
 function setOptions(id,items,label,mapper){const el=document.getElementById(id),old=el.value;el.innerHTML='';el.add(new Option(label,''));(items||[]).forEach(x=>{let v=mapper?mapper(x):x;if(v)el.add(new Option(v,v))});if([...el.options].some(o=>o.value===old))el.value=old}
