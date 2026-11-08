@@ -1,137 +1,79 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DOS Monitoring Samsung</title>
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DOS Monitoring Samsung</title>
 <style>
-:root{--blue:#0878d1;--navy:#12304a;--bg:#f3f7fb;--line:#e4ebf2;--muted:#6c7b8b;--red:#e5484d;--green:#159b69;--orange:#e99b20}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.45 Inter,Arial,sans-serif;color:#1c2b39}
-header{background:linear-gradient(120deg,#0878d1,#075ca8);color:white;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-header h1{font-size:21px;margin:0}header p{margin:4px 0 0;color:#d8ecff;font-size:12px}
-button{border:0;border-radius:9px;padding:10px 14px;font-weight:600;cursor:pointer;background:var(--blue);color:white}
-button.secondary{background:#edf4fa;color:#31516c;border:1px solid var(--line)}
-.wrap{max-width:1400px;margin:auto;padding:18px}
-.toolbar,.filters,.cards,.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:14px}
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{background:#edf4fa;color:#45617b}.tab.active{background:#0878d1;color:white}
-.filters{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:10px}
-label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
-select,input{width:100%;padding:10px;border:1px solid #dce5ee;border-radius:9px;background:white;color:#23384b}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.metric{padding:13px;border-radius:11px;background:#f7fafd;border:1px solid var(--line)}
-.metric small{color:var(--muted)}.metric strong{display:block;font-size:25px;margin-top:5px}
-.panel h2{font-size:16px;margin:0 0 12px}
-.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line)}th{font-size:12px;color:#607386;background:#f7fafd;position:sticky;top:0}
-.status{font-weight:700;padding:4px 8px;border-radius:20px;font-size:11px}.LOW{color:#b4232b;background:#fff0f0}.HIGH{color:#9a6200;background:#fff6df}.NORMAL{color:#08784f;background:#e8f8f0}.NO-SALES{color:#596b7c;background:#edf2f6}
-#login{position:fixed;inset:0;background:#eaf2f9;display:flex;align-items:center;justify-content:center;padding:18px;z-index:5}
-.loginbox{width:min(390px,100%);background:white;padding:25px;border-radius:18px;border:1px solid var(--line);box-shadow:0 18px 60px #153b5b20}
-.loginbox h2{margin:0 0 6px}.loginbox p{color:var(--muted);margin:0 0 18px}.loginbox input{margin-bottom:12px}.loginbox button{width:100%}
-#message{color:var(--red);font-size:12px;margin-top:10px;min-height:18px}
-.hidden{display:none!important}.hint{color:var(--muted);font-size:12px}
-@media(max-width:800px){.filters{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}header{padding:16px}.wrap{padding:12px}.metric strong{font-size:22px}}
-@media(max-width:420px){.filters{grid-template-columns:1fr 1fr}.cards{gap:8px}.metric{padding:10px}.metric strong{font-size:20px}}
+*{box-sizing:border-box}body{margin:0;background:#f3f7fb;color:#203246;font:14px Arial,sans-serif}header{background:#0878d1;color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}h1{font-size:21px;margin:0}header p{margin:5px 0 0;color:#d9edff}.wrap{max-width:1500px;margin:auto;padding:18px}.panel,.metric{background:#fff;border:1px solid #e1eaf2;border-radius:14px;padding:15px;margin-bottom:14px}.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.filters label{display:block;color:#65788c;font-size:12px;margin-bottom:5px}select,input{width:100%;padding:11px;border:1px solid #d9e4ef;border-radius:9px;background:white;color:#24394d}button{border:0;border-radius:9px;background:#0878d1;color:#fff;padding:11px 15px;font-weight:bold;cursor:pointer}.btnlight{background:#eaf3fb;color:#27516f}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric small{color:#6c7f92}.metric b{display:block;font-size:25px;margin-top:8px}.red{color:#e5484d}.green{color:#159b69}.orange{color:#e99b20}.panel h2{font-size:16px;margin:0 0 12px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{padding:11px 10px;border-bottom:1px solid #e7edf4;text-align:left}th{background:#f5f9fc;color:#63788d;font-size:12px} .tag{padding:4px 8px;border-radius:20px;font-size:11px;font-weight:bold}.LOW{background:#ffeded;color:#bd2732}.NORMAL{background:#e8f8ef;color:#08784f}.HIGH{background:#fff5df;color:#9c6500}.NOSALES{background:#edf2f6;color:#607386}#login{position:fixed;inset:0;background:#eaf2f9;display:flex;align-items:center;justify-content:center;padding:18px;z-index:9}.loginbox{background:white;padding:25px;border:1px solid #dfe8f1;border-radius:18px;width:min(390px,100%);box-shadow:0 20px 55px #123b5c20}.loginbox h2{margin:0 0 8px}.loginbox p{color:#6b7d8e}.loginbox label{display:block;margin:12px 0 5px;color:#64788c;font-size:12px}.loginbox button{width:100%;margin-top:15px}#msg{color:#d32f3b;font-size:12px;min-height:18px;margin-top:10px}.hidden{display:none!important}.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}.hint{color:#6b7d8e;font-size:12px;margin:8px 0}
+@media(max-width:800px){.filters{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}.wrap{padding:12px}header{padding:16px}}
 </style>
-</head>
-<body>
-<div id="login">
-  <div class="loginbox">
-    <h2>DOS Monitoring Samsung</h2>
-    <p>Login ADMIN untuk membuka dashboard.</p>
-    <label>Username</label><input id="username" value="admin" autocomplete="username">
-    <label>Password</label><input id="password" type="password" placeholder="Masukkan password" autocomplete="current-password">
-    <button id="loginBtn" onclick="login()">Masuk Dashboard</button>
-    <div id="message"></div>
-  </div>
-</div>
-<header>
-  <div><h1>DOS MONITORING SAMSUNG</h1><p>Monitoring Days of Stock · Sales rolling 30 hari</p></div>
-  <button class="secondary" onclick="logout()">Logout</button>
-</header>
-<div class="wrap">
-  <div class="toolbar">
-    <div class="tabs">
-      <button class="tab active" id="tabDos" onclick="switchTab('dos')">DOS Monitoring</button>
-      <button class="tab" id="tabStock" onclick="switchTab('stock')">Cari Stock</button>
-    </div>
-    <div><button class="secondary" onclick="loadData()">↻ Refresh Data</button></div>
-  </div>
-  <section class="filters">
-    <div><label>Region</label><select id="fRegion" onchange="render()"><option value="">Semua Region</option></select></div>
-    <div><label>TSH</label><select id="fTsh" onchange="render()"><option value="">Semua TSH</option></select></div>
-    <div><label>Store</label><select id="fStore" onchange="render()"><option value="">Semua Store</option></select></div>
-    <div><label>Model</label><select id="fModel" onchange="render()"><option value="">Semua Model</option></select></div>
-  </section>
-  <section class="cards">
-    <div class="metric"><small>Total Material</small><strong id="mTotal">0</strong></div>
-    <div class="metric"><small>DOS LOW (&lt;7)</small><strong id="mLow" style="color:#e5484d">0</strong></div>
-    <div class="metric"><small>DOS NORMAL (7–25)</small><strong id="mNormal" style="color:#159b69">0</strong></div>
-    <div class="metric"><small>DOS HIGH (&gt;25)</small><strong id="mHigh" style="color:#e99b20">0</strong></div>
-  </section>
-  <section class="panel" id="dosPanel">
-    <h2>Daftar DOS per Store & Material</h2><div class="hint" id="dataHint">Silakan login lalu refresh data.</div>
-    <div class="tablewrap"><table><thead><tr><th>Region</th><th>TSH</th><th>Store</th><th>Material</th><th>Model</th><th>Stock</th><th>Sales 30D</th><th>ADS</th><th>DOS</th><th>Status</th></tr></thead><tbody id="dosRows"><tr><td colspan="10">Belum ada data.</td></tr></tbody></table></div>
-  </section>
-  <section class="panel hidden" id="stockPanel">
-    <h2>Cari Stock Antar Store</h2>
-    <div style="display:flex;gap:8px;margin-bottom:12px"><input id="stockQuery" placeholder="Cari model / material..." onkeydown="if(event.key==='Enter')searchStock()"><button onclick="searchStock()">Cari</button></div>
-    <div class="tablewrap"><table><thead><tr><th>Region</th><th>TSH</th><th>Store</th><th>Material</th><th>Model</th><th>Stock</th><th>DOS</th><th>Status</th></tr></thead><tbody id="stockRows"><tr><td colspan="8">Masukkan model atau material.</td></tr></tbody></table></div>
-  </section>
-</div>
+<style>
+/* Premium Samsung-inspired interaction layer */
+:root{--accent:#0878d1;--accent2:#0057a8;--ink:#142b40;--muted:#718397;--surface:#fff;--line:#e7edf4;--shadow:0 8px 28px rgba(22,55,87,.055);--shadow-hover:0 14px 34px rgba(22,85,145,.12)}
+body{background:radial-gradient(ellipse at 8% 0%,#eaf5ff 0,transparent 34%),#f5f8fc;color:var(--ink);letter-spacing:.05px}
+header{background:linear-gradient(115deg,#0756a5 0%,#087bd7 52%,#1596e8 100%);padding:24px clamp(16px,3vw,42px);position:relative;overflow:hidden;box-shadow:0 5px 22px #075ca825}
+header:after{content:"";position:absolute;width:340px;height:340px;border:1px solid #ffffff20;border-radius:50%;right:-90px;top:-210px;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff06;pointer-events:none}
+header h1{letter-spacing:.7px;font-weight:750}header p{opacity:.88}
+.wrap{max-width:1600px;padding:clamp(14px,2vw,28px)}
+.panel,.metric{border:1px solid #e5edf5;border-radius:17px;box-shadow:var(--shadow);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.panel{padding:19px}.metric{padding:18px;background:linear-gradient(145deg,#fff,#fbfdff)}
+.metric:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:#cfe5f8}
+.cards{gap:14px;margin-bottom:16px}
+.metric small{font-size:12px;font-weight:600;letter-spacing:.25px}.metric b{font-size:29px;letter-spacing:-.8px;animation:countIn .45s ease both}
+.filters{background:#ffffffd9;backdrop-filter:blur(12px);border-color:#e2ebf4;box-shadow:var(--shadow);padding:16px}
+select,input{transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+select:hover,input:hover{border-color:#b8d7f1}
+select:focus,input:focus{outline:none;border-color:#1386dc;box-shadow:0 0 0 3px #1386dc18}
+button{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;background:linear-gradient(135deg,#087bd7,#0563b5);box-shadow:0 3px 9px #0878d120}
+button:hover{filter:brightness(1.04);transform:translateY(-1px);box-shadow:0 7px 16px #0878d130}
+button:active{transform:scale(.98)}
+.btnlight{background:#f0f7fd;border:1px solid #dcebf8;box-shadow:none}
+.btnlight:hover{background:#e4f2fd;box-shadow:0 5px 12px #1267a512}
+table{border-spacing:0}th{background:#f5f9fd;color:#59728a;font-weight:700;letter-spacing:.25px}
+tbody tr{transition:background .16s ease}tbody tr:hover{background:#f0f8ff}
+td{color:#2d4256;font-size:13px}
+.tag{display:inline-flex;align-items:center;gap:5px}
+.topbar{padding:2px 2px 8px}.topbar strong{font-size:17px;letter-spacing:-.2px}
+.loginbox{border:1px solid #e1ebf4;box-shadow:0 25px 80px #123b5b18;animation:loginUp .45s cubic-bezier(.2,.8,.2,1) both}
+#login{background:linear-gradient(140deg,#eaf5ff,#f6f9fc 55%,#e5f1fb)}
+.loginbox button{margin-top:18px}
+#hint{transition:opacity .2s ease}
+@keyframes loginUp{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes countIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.panel{animation:fadeIn .38s ease both}.cards .metric:nth-child(2){animation-delay:.04s}.cards .metric:nth-child(3){animation-delay:.08s}.cards .metric:nth-child(4){animation-delay:.12s}
+#body tr{animation:fadeIn .22s ease both}
+#body tr:nth-child(2){animation-delay:.015s}#body tr:nth-child(3){animation-delay:.03s}#body tr:nth-child(4){animation-delay:.045s}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(max-width:650px){header{align-items:flex-start}header h1{font-size:18px}.metric{padding:13px}.metric b{font-size:24px}.panel{padding:13px;border-radius:14px}th,td{padding:10px 9px}}
+</style>
+</head><body>
+<div id="login"><div class="loginbox"><h2>DOS Monitoring Samsung</h2><p>Login ADMIN</p><label>Login Code</label><input id="loginCode" value="admin" autocomplete="username"><label>Password</label><input id="pass" type="password" placeholder="Password ADMIN" autocomplete="current-password"><button onclick="login()">Masuk</button><div id="msg"></div></div></div>
+<header><div><h1>DOS MONITORING SAMSUNG</h1><p>Days of Stock · Rolling Sales 30 Hari</p></div><button class="btnlight" onclick="logout()">Logout</button></header>
+<main class="wrap">
+<div class="topbar"><strong>Monitoring DOS</strong><button class="btnlight" onclick="loadDos()">↻ Refresh</button></div>
+<section class="panel filters">
+<div><label>Region</label><select id="region" onchange="regionChange()"><option value="">Semua Region</option></select></div>
+<div><label>TSH</label><select id="tsh" onchange="tshChange()"><option value="">Semua TSH</option></select></div>
+<div><label>Store</label><select id="store" onchange="loadDos()"><option value="">Semua Store</option></select></div>
+<div><label>Model (nama model)</label><select id="model" onchange="loadDos()"><option value="">Semua Model</option></select></div>
+</section>
+<section class="cards"><div class="metric"><small>Total Material/Model Store</small><b id="total">0</b></div><div class="metric"><small>DOS LOW (&lt;7)</small><b class="red" id="low">0</b></div><div class="metric"><small>DOS NORMAL (7–25)</small><b class="green" id="normal">0</b></div><div class="metric"><small>DOS HIGH (&gt;25)</small><b class="orange" id="high">0</b></div></section>
+<section class="panel"><h2>Daftar DOS per Store & Model</h2><div class="hint" id="hint">Login untuk memuat data.</div><div class="tablewrap"><table><thead><tr><th>Region</th><th>TSH</th><th>Store</th><th>Model</th><th>Stock</th><th>Sales 30D</th><th>ADS</th><th>DOS</th><th>Status</th></tr></thead><tbody id="body"><tr><td colspan="9">Belum ada data</td></tr></tbody></table></div></section>
+</main>
 <script>
 const API='https://script.google.com/macros/s/AKfycbxAVESu3lSJklK4iHLugjNAg-NaG8L1f3qcacecwXdHhIraJdYVfLmJZK9Lze3LlYCp/exec';
-let token=sessionStorage.getItem('dosToken')||'', rows=[], masters={};
-async function api(payload){
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
-  return await r.json();
-}
-async function login(){
-  const msg=document.getElementById('message');msg.textContent='Memeriksa login...';
-  try{
-    const res=await api({action:'login',username:document.getElementById('username').value.trim(),password:document.getElementById('password').value});
-    if(!res.success)throw new Error(res.message||'Login gagal');
-    token=res.token;sessionStorage.setItem('dosToken',token);
-    document.getElementById('login').classList.add('hidden');msg.textContent='';
-    await loadData();
-  }catch(e){msg.textContent=e.message||'Tidak bisa terhubung ke backend';}
-}
-async function logout(){token='';sessionStorage.removeItem('dosToken');document.getElementById('login').classList.remove('hidden');document.getElementById('password').value='';}
-function needLogin(msg){if(msg)alert(msg);logout();}
-async function loadData(){
-  if(!token)return;
-  document.getElementById('dataHint').textContent='Mengambil data dari Google Sheets...';
-  try{
-    const [d,m]=await Promise.all([api({action:'dos',token}),api({action:'master',token})]);
-    if(!d.success||!m.success){needLogin(d.message||m.message||'Sesi berakhir');return;}
-    rows=d.data||[];masters=m.data||{};
-    fillSelect('fRegion',masters.region||[],'Semua Region');
-    fillSelect('fTsh',masters.tsh||[],'Semua TSH');
-    fillSelect('fStore',masters.store||[],'Semua Store');
-    fillSelect('fModel',masters.model||[],'Semua Model');
-    render();document.getElementById('dataHint').textContent=`${rows.length.toLocaleString('id-ID')} baris data · diperbarui`;
-  }catch(e){document.getElementById('dataHint').textContent='Gagal mengambil data. Cek koneksi backend.';console.error(e);}
-}
-function fillSelect(id,arr,label){const el=document.getElementById(id),old=el.value;el.innerHTML=`<option value="">${label}</option>`;[...new Set(arr)].filter(Boolean).sort().forEach(v=>el.add(new Option(v,v)));el.value=old;}
-function filtered(){
- const region=fRegion.value,tsh=fTsh.value,store=fStore.value,model=fModel.value;
- return rows.filter(x=>(!region||x.region===region)&&(!tsh||x.tsh===tsh)&&(!store||x.storeName===store||x.storeCode===store)&&(!model||x.model===model));
-}
-function render(){
- const data=filtered();mTotal.textContent=data.length.toLocaleString('id-ID');
- mLow.textContent=data.filter(x=>x.status==='LOW').length;mNormal.textContent=data.filter(x=>x.status==='NORMAL').length;mHigh.textContent=data.filter(x=>x.status==='HIGH').length;
- dosRows.innerHTML=data.map(x=>`<tr><td>${esc(x.region)}</td><td>${esc(x.tsh)}</td><td>${esc(x.storeName||x.storeCode)}</td><td>${esc(x.materialCode)}</td><td>${esc(x.model)}</td><td>${num(x.stock)}</td><td>${num(x.sales30)}</td><td>${num(x.ads)}</td><td>${x.dos==null?'—':num(x.dos)}</td><td><span class="status ${statusClass(x.status)}">${esc(x.status||'—')}</span></td></tr>`).join('')||'<tr><td colspan="10">Data tidak ditemukan.</td></tr>';
-}
-async function searchStock(){
- if(!token)return;const q=stockQuery.value.trim();if(!q){stockRows.innerHTML='<tr><td colspan="8">Masukkan model atau material.</td></tr>';return;}
- stockRows.innerHTML='<tr><td colspan="8">Mencari...</td></tr>';
- try{const r=await api({action:'stockSearch',token,query:q});if(!r.success){needLogin(r.message);return;}
- const data=r.data||[];stockRows.innerHTML=data.map(x=>`<tr><td>${esc(x.region)}</td><td>${esc(x.tsh)}</td><td>${esc(x.storeName||x.storeCode)}</td><td>${esc(x.materialCode)}</td><td>${esc(x.model)}</td><td>${num(x.stock)}</td><td>${x.dos==null?'—':num(x.dos)}</td><td><span class="status ${statusClass(x.status)}">${esc(x.status||'—')}</span></td></tr>`).join('')||'<tr><td colspan="8">Stock tidak ditemukan.</td></tr>';
- }catch(e){stockRows.innerHTML='<tr><td colspan="8">Gagal mencari stock.</td></tr>';}
-}
-function switchTab(t){dosPanel.classList.toggle('hidden',t!=='dos');stockPanel.classList.toggle('hidden',t!=='stock');tabDos.classList.toggle('active',t==='dos');tabStock.classList.toggle('active',t==='stock');}
-function num(v){return v==null?'0':Number(v).toLocaleString('id-ID',{maximumFractionDigits:1});}
-function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function statusClass(s){return String(s||'').toUpperCase().replace(/[^A-Z-]/g,'')||'NO-SALES';}
-if(token){document.getElementById('login').classList.add('hidden');loadData();}
-</script>
-</body></html>
+let user=JSON.parse(sessionStorage.getItem('dosUser')||'null'), dosData=null;
+function callApi(action,data){return new Promise((resolve,reject)=>{const cb='doscb_'+Date.now()+'_'+Math.floor(Math.random()*99999);const s=document.createElement('script');const payload=encodeURIComponent(JSON.stringify(data||{}));window[cb]=res=>{delete window[cb];s.remove();resolve(res)};s.onerror=()=>{delete window[cb];s.remove();reject(Error('Backend tidak merespons'))};s.src=API+'?api='+encodeURIComponent(action)+'&callback='+cb+'&data='+payload;document.body.appendChild(s)})}
+async function login(){msg.textContent='Login sedang dicek...';try{const r=await callApi('loginUser',{loginCode:loginCode.value.trim(),password:pass.value});if(!r.ok)throw Error(r.error||'Login gagal');user=r.data;sessionStorage.setItem('dosUser',JSON.stringify(user));loginLayerHide();await loadDos()}catch(e){msg.textContent=e.message}}
+function loginLayerHide(){document.getElementById('login').classList.add('hidden')}
+function logout(){user=null;dosData=null;sessionStorage.removeItem('dosUser');document.getElementById('login').classList.remove('hidden')}
+function setOptions(id,items,label,mapper){const el=document.getElementById(id),old=el.value;el.innerHTML='';el.add(new Option(label,''));(items||[]).forEach(x=>{let v=mapper?mapper(x):x;if(v)el.add(new Option(v,v))});if([...el.options].some(o=>o.value===old))el.value=old}
+async function loadDos(){if(!user)return;hint.textContent='Memuat data dari database...';try{const f={region:region.value,tsh:tsh.value,store:store.value,model:model.value};const r=await callApi('getAdminDos',{user,filters:f});if(!r.ok)throw Error(r.error);dosData=r.data;
+setOptions('region',dosData.regions,'Semua Region');setOptions('tsh',dosData.tshs,'Semua TSH');setOptions('store',dosData.stores,'Semua Store',x=>x.storeName);setOptions('model',dosData.models,'Semua Model');
+const arr=dosData.rows||[];total.textContent=arr.length.toLocaleString('id-ID');low.textContent=arr.filter(x=>x.dos!==null&&x.dos<7).length;normal.textContent=arr.filter(x=>x.dos!==null&&x.dos>=7&&x.dos<=25).length;high.textContent=arr.filter(x=>x.dos!==null&&x.dos>25).length;
+body.innerHTML=arr.map(x=>{let st=x.dos===null?'NO SALES':x.dos<7?'LOW':x.dos>25?'HIGH':'NORMAL';return `<tr><td>${esc(x.region)}</td><td>${esc(x.tsh)}</td><td>${esc(x.storeName)}</td><td>${esc(x.model)}</td><td>${fmt(x.stock)}</td><td>${fmt(x.sales30)}</td><td>${fmt(x.avgDaily)}</td><td>${x.dos===null?'—':fmt(x.dos)}</td><td><span class="tag ${st.replace(' ','')}">${st}</span></td></tr>`}).join('')||'<tr><td colspan="9">Data tidak ditemukan</td></tr>';
+hint.textContent=arr.length.toLocaleString('id-ID')+' baris · data berhasil dimuat';
+}catch(e){hint.textContent=e.message;}}
+function regionChange(){tsh.value='';store.value='';loadDos()}
+function tshChange(){store.value='';loadDos()}
+function fmt(v){return Number(v||0).toLocaleString('id-ID',{maximumFractionDigits:1})}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+if(user){loginLayerHide();loadDos()}
+</script></body></html>
